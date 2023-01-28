@@ -1,0 +1,38 @@
+name: Update Image in README
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install selenium webdriver-manager
+        
+    - name: Get script
+      run: |
+        curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/images.py >images.py
+    
+    - name: Create image
+      run: |
+        curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/images.py >images.py
+        
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Update image
+        file_pattern: example.png
