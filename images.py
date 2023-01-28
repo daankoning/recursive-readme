@@ -51,5 +51,5 @@ def get_image(user: str, depth=10, resolution: tuple[int, int] = (1280, 800)):
 
 
 if __name__ == '__main__':
-    with open("/Users/daankoning/Documents/projects/readme-recursion/test.png", 'wb') as file:
+    with open("example.png", 'wb') as file:
         file.write(get_image('daankoning'))
