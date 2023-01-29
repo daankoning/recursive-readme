@@ -8,7 +8,7 @@ branding:
 runs:
   using: "composite"
   steps:
-    - run: pip install -r selenium webdriver-manager
+    - run: pip install selenium webdriver-manager
       shell: bash
     - run: python images.py
       shell: bash
