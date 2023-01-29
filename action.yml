@@ -14,6 +14,10 @@ inputs:
     description: "Whether or not to automatically commit the generated image. Default: false"
     required: false
     default: 'false'
+  output-file:
+    description: "The file where the recursive image is output. Default: /example.png"
+    required: false
+    default: 'example.png'
 
 runs:
   using: "composite"
@@ -30,7 +34,7 @@ runs:
       shell: bash
     - name: Generate images
       run: |
-        python images.py --user ${{ inputs.user }}
+        python images.py --user ${{ inputs.user }} --output-file ${{ inputs.output-file }}
       shell: bash
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:

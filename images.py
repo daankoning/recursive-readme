@@ -57,16 +57,22 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-u", "--user",
-        help="The user for which to generate the image."
+        help="The user for which to generate the image.",
+        default='false'
+    )
+    parser.add_argument(
+        "-o", "--output-file",
+        help="The file to which the image is output.",
+        default="example.png"
     )
 
     args = parser.parse_args()
 
     if args.user == 'false':
-        args.user = os.getenv('GITHUB_REPOSITORY_OWNER')
+        args.user = os.getenv('GITHUB_REPOSITORY_OWNER', 'daankoning')
         print(f"User set to: {args.user}")
 
-    with open("example.png", 'wb') as file:
+    with open(args.output_file, 'wb') as file:
         file.write(get_image(args.user))  # TODO: errors when no user is set
 
 
