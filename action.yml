@@ -9,7 +9,7 @@ inputs:
   user:
     description: "The user for which the image is being generated. Default: the owner of the current repository."
     required: false
-    default: ${{ $GITHUB_REPOSITORY_OWNER }}
+    default: ''
   auto-commit:
     description: "Whether or not to automatically commit the generated image. Default: false"
     required: false

@@ -1,3 +1,5 @@
+import os
+
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.utils import ChromeType
@@ -59,6 +61,9 @@ def main():
     )
 
     args = parser.parse_args()
+
+    if not args.user:
+        args.user = os.getenv('GITHUB_REPOSITORY_OWNER')
 
     with open("example.png", 'wb') as file:
         file.write(get_image(args.user))  # TODO: errors when no user is set
