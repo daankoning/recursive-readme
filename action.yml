@@ -1,6 +1,9 @@
 name: readme-recursion
 description: An action to create cool recursive READMEs for your Github profile
 author: Daan Koning
+branding:
+  icon: 'image'
+  color: 'purple'
 
 runs:
   using: "composite"
