@@ -8,7 +8,8 @@ branding:
 runs:
   using: "composite"
   steps:
-    - run: pip install selenium webdriver-manager
+    - uses: actions/checkout@v2
+    - run: pip install -r requirements.txt
       shell: bash
     - run: python images.py
       shell: bash
