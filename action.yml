@@ -6,6 +6,10 @@ branding:
   color: 'purple'
 
 inputs:
+  user:
+    description: "The user for which the image is being generated. Default: the owner of the current repository."
+    required: false
+    default: env.GITHUB_REPOSITORY_OWNER
   auto-commit:
     description: "Whether or not to automatically commit the generated image. Default: false"
     required: false
@@ -20,9 +24,13 @@ runs:
       run: |
         curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/requirements.txt | xargs pip install
       shell: bash
-    - name: Generate image
+    - name: Fetch script
       run: |
-        curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/images.py | python
+        curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/images.py >images.py
+      shell: bash
+    - name: Generate images
+      run: |
+        python images.py --user ${{ inputs.user }}
       shell: bash
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:

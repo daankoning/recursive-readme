@@ -5,6 +5,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 
 import base64
+import argparse
 
 
 def _update_src(browser: webdriver.Firefox, value: str):
@@ -50,6 +51,18 @@ def get_image(user: str, depth=10, resolution: tuple[int, int] = (1280, 800)):
         return base64.b64decode(_get_recursive_image(browser, depth))
 
 
-if __name__ == '__main__':
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-u", "--user",
+        help="The user for which to generate the image."
+    )
+
+    args = parser.parse_args()
+
     with open("example.png", 'wb') as file:
-        file.write(get_image('daankoning'))
+        file.write(get_image(args.user))  # TODO: errors when no user is set
+
+
+if __name__ == '__main__':
+    main()
