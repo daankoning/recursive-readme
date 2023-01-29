@@ -15,7 +15,7 @@ runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v2
-      if: ${{ INPUT_AUTO-COMMIT == 'true'}}
+      if: ${{ $INPUT_AUTO-COMMIT == 'true'}}
     - name: get required files
       run: |
         curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/requirements.txt >requirements.txt
@@ -29,5 +29,5 @@ runs:
       with:
         commit_message: Update image
         file_pattern: example.png
-      if: ${{ INPUT_AUTO-COMMIT == 'true'}}
+      if: ${{ $INPUT_AUTO-COMMIT == 'true'}}
         
