@@ -8,9 +8,10 @@ branding:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v2
-      with:
-        repository: 'daankoning/recursive-readme'
+    - name: get required files
+      run: |
+        curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/requirements.txt >requirements.txt
+        curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/images.py >images.py
     - run: pip install -r requirements.txt
       shell: bash
     - run: python images.py
