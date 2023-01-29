@@ -64,6 +64,7 @@ def main():
 
     if args.user == 'false':
         args.user = os.getenv('GITHUB_REPOSITORY_OWNER')
+        print(f"User set to: {args.user}")
 
     with open("example.png", 'wb') as file:
         file.write(get_image(args.user))  # TODO: errors when no user is set
