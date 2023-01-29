@@ -5,9 +5,17 @@ branding:
   icon: 'image'
   color: 'purple'
 
+inputs:
+  auto-commit:
+    description: "Whether or not to automatically commit the generated image. Default: false"
+    required: false
+    default: 'false'
+
 runs:
   using: "composite"
   steps:
+    - uses: actions/checkout@v2
+      if: ${{ INPUT_AUTO-COMMIT == 'true'}}
     - name: get required files
       run: |
         curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/requirements.txt >requirements.txt
@@ -17,4 +25,9 @@ runs:
       shell: bash
     - run: python images.py
       shell: bash
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Update image
+        file_pattern: example.png
+      if: ${{ INPUT_AUTO-COMMIT == 'true'}}
         
