@@ -62,7 +62,7 @@ def main():
 
     args = parser.parse_args()
 
-    if not args.user:
+    if args.user == 'false':
         args.user = os.getenv('GITHUB_REPOSITORY_OWNER')
 
     with open("example.png", 'wb') as file:
