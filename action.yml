@@ -1,0 +1,12 @@
+name: readme-recursion
+description: An action to create cool recursive READMEs for your Github profile
+author: Daan Koning
+
+runs:
+  using: "composite"
+  steps:
+    - run: pip install -r requirements.txt
+      shell: bash
+    - run: python images.py
+      shell: bash
+        
