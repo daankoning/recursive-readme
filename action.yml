@@ -9,8 +9,8 @@ runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v2
-        with:
-          repository: 'daankoning/recursive-readme'
+      with:
+        repository: 'daankoning/recursive-readme'
     - run: pip install -r requirements.txt
       shell: bash
     - run: python images.py
