@@ -12,6 +12,7 @@ runs:
       run: |
         curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/requirements.txt >requirements.txt
         curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/images.py >images.py
+      shell: bash
     - run: pip install -r requirements.txt
       shell: bash
     - run: python images.py
