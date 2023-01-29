@@ -16,14 +16,13 @@ runs:
   steps:
     - uses: actions/checkout@v2
       if: ${{ inputs.auto-commit == 'true' }}
-    - name: get required files
+    - name: Install dependencies
       run: |
-        curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/requirements.txt >requirements.txt
-        curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/images.py >images.py
+        curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/requirements.txt | xargs pip install
       shell: bash
-    - run: pip install -r requirements.txt
-      shell: bash
-    - run: python images.py
+    - name: Generate image
+      run: |
+        curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/images.py | python
       shell: bash
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
