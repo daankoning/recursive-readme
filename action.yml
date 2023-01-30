@@ -24,13 +24,15 @@ runs:
   steps:
     - uses: actions/checkout@v2
       if: ${{ inputs.auto-commit == 'true' }}
+    - id: get-tag
+      uses: battila7/get-version-action@v2
     - name: Install dependencies
       run: |
-        curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/requirements.txt | xargs pip install
+        curl https://raw.githubusercontent.com/daankoning/recursive-readme/${{ steps.get-tag.outputs.version }}/requirements.txt | xargs pip install
       shell: bash
     - name: Fetch script
       run: |
-        curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/images.py >images.py
+        curl https://raw.githubusercontent.com/daankoning/recursive-readme/${{ steps.get-tag.outputs.version }}/images.py >images.py
       shell: bash
     - name: Generate images
       run: |
