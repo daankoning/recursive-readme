@@ -10,22 +10,22 @@ import base64
 import argparse
 
 
-def _update_src(browser: webdriver.Firefox, value: str):
-    script = f"document.getElementById('user-content-recursivereadme').src = '{value}'"
+def _update_src(browser: webdriver.Firefox, value: str, element_id: str = 'recursivereadme'):
+    script = f"document.getElementById('user-content-{element_id}').src = '{value}'"
     browser.execute_script(script)
 
 
-def _get_recursive_image(browser: webdriver.Chrome, iterations: int = 10):
+def _get_recursive_image(browser: webdriver.Chrome, iterations: int = 10, element_id: str = 'recursivereadme'):
     if iterations == 0:
         return browser.get_screenshot_as_base64()
 
     new_img = f"data:image/png;base64,{browser.get_screenshot_as_base64()}"
-    _update_src(browser, new_img)
+    _update_src(browser, new_img, element_id)
 
     return _get_recursive_image(browser, iterations - 1)
 
 
-def get_image(user: str, depth=10, resolution: tuple[int, int] = (1280, 800)):
+def get_image(user: str, depth=10, resolution: tuple[int, int] = (1280, 800), element_id: str = 'recursivereadme'):
     print("Beginning install")
     chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
     print("Succesfuly installed Chromium")
@@ -50,7 +50,7 @@ def get_image(user: str, depth=10, resolution: tuple[int, int] = (1280, 800)):
         browser.get(url)
         browser.fullscreen_window()
 
-        return base64.b64decode(_get_recursive_image(browser, depth))
+        return base64.b64decode(_get_recursive_image(browser, depth, element_id))
 
 
 def main():
@@ -58,12 +58,17 @@ def main():
     parser.add_argument(
         "-u", "--user",
         help="The user for which to generate the image.",
-        default='false'
+        default='false',
     )
     parser.add_argument(
         "-o", "--output-file",
         help="The file to which the image is output.",
-        default="example.png"
+        default="example.png",
+    )
+    parser.add_argument(
+        "-i", "--tag-id",
+        help="The id of the img tag in your README.",
+        default='recursivereadme',
     )
 
     args = parser.parse_args()
@@ -73,7 +78,7 @@ def main():
         print(f"User set to: {args.user}")
 
     with open(args.output_file, 'wb') as file:
-        file.write(get_image(args.user))  # TODO: errors when no user is set
+        file.write(get_image(args.user, element_id=args.tag_id))  # TODO: errors when no user is set
 
 
 if __name__ == '__main__':

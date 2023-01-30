@@ -18,6 +18,10 @@ inputs:
     description: "The file where the recursive image is output. Default: /example.png"
     required: false
     default: 'example.png'
+  tag-id:
+    description: "The id of the img tag in your README. Default: recursivereadme"
+    required: false
+    default: 'recursivereadme'
 
 runs:
   using: "composite"
@@ -36,7 +40,7 @@ runs:
       shell: bash
     - name: Generate images
       run: |
-        python images.py --user ${{ inputs.user }} --output-file ${{ inputs.output-file }}
+        python images.py --user ${{ inputs.user }} --output-file ${{ inputs.output-file }} --tag-id ${{ inputs.tag-id }}
       shell: bash
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
