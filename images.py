@@ -1,5 +1,6 @@
 import os
 
+import selenium
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.utils import ChromeType
@@ -10,9 +11,17 @@ import base64
 import argparse
 
 
+class IDReadException(Exception):
+    pass
+
+
 def _update_src(browser: webdriver.Firefox, value: str, element_id: str = 'recursivereadme'):
     script = f"document.getElementById('user-content-{element_id}').src = '{value}'"
-    browser.execute_script(script)
+    try:
+        browser.execute_script(script)
+    except selenium.common.exceptions.JavascriptException:
+        raise IDReadException(f"Failed to find a tag with id '{element_id}' on {browser.current_url}. Are you sure you "
+                              f"set the right one?")
 
 
 def _get_recursive_image(browser: webdriver.Chrome, iterations: int = 10, element_id: str = 'recursivereadme'):
