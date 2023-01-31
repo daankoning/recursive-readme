@@ -42,7 +42,7 @@ runs:
       shell: bash
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        commit_message: Update image
+        commit_message: Regenerate ${{ inputs.output-file }}
         file_pattern: ${{ inputs.output-file }}
       if: ${{ inputs.auto-commit == 'true' }}
         
