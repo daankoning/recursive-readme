@@ -28,16 +28,13 @@ runs:
   steps:
     - uses: actions/checkout@v2
       if: ${{ inputs.auto-commit == 'true' }}
-    - name: Get current tag
-      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-      shell: bash
     - name: Install dependencies
       run: |
-        curl https://raw.githubusercontent.com/daankoning/recursive-readme/${{ env.RELEASE_VERSION }}/requirements.txt | xargs pip install
+        curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/requirements.txt | xargs pip install
       shell: bash
     - name: Fetch script
       run: |
-        curl https://raw.githubusercontent.com/daankoning/recursive-readme/${{ env.RELEASE_VERSION }}/images.py >images.py
+        curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/images.py >images.py
       shell: bash
     - name: Generate images
       run: |
@@ -46,6 +43,6 @@ runs:
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Update image
-        file_pattern: example.png
+        file_pattern: ${{ inputs.output-file }}
       if: ${{ inputs.auto-commit == 'true' }}
         

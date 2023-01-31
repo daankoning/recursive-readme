@@ -87,7 +87,7 @@ def main():
         print(f"User set to: {args.user}")
 
     with open(args.output_file, 'wb') as file:
-        file.write(get_image(args.user, element_id=args.tag_id))  # TODO: errors when no user is set
+        file.write(get_image(args.user, element_id=args.tag_id))
 
 
 if __name__ == '__main__':
