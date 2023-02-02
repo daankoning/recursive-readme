@@ -22,12 +22,20 @@ inputs:
     description: "The id of the img tag in your README. Default: recursivereadme"
     required: false
     default: 'recursivereadme'
+  set-up-python:
+    description: "Whether or not the action should set up its own Python install. This could overwrite an existing Python install before this action which is why this should be set to 'false' if you already have an install. Default: true"
+    required: false
+    default: 'true'
 
 runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v2
       if: ${{ inputs.auto-commit == 'true' }}
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+      if: ${{ inputs.set-up-python == 'true' }}
     - name: Install dependencies
       run: |
         curl https://raw.githubusercontent.com/daankoning/recursive-readme/main/requirements.txt | xargs pip install
