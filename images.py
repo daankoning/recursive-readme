@@ -21,7 +21,7 @@ def _update_src(browser: webdriver.Firefox, value: str, element_id: str = 'recur
         browser.execute_script(script)
     except selenium.common.exceptions.JavascriptException:
         raise IDReadException(f"Failed to find a tag with id '{element_id}' on {browser.current_url}. Are you sure you "
-                              f"set the right one?")
+                              f"set the right tag and username?")
 
 
 def _get_recursive_image(browser: webdriver.Chrome, iterations: int = 10, element_id: str = 'recursivereadme'):
