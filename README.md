@@ -29,7 +29,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: daankoning/recursive-readme@v1.0.1
+    - uses: daankoning/recursive-readme@v1.1.0
       with:
         auto-commit: 'true'
 ```
@@ -39,11 +39,14 @@ jobs:
 The entire usage spec is below.
 
 ```yaml
-- uses: daankoning/recursive-readme@v1.0.1
+- uses: daankoning/recursive-readme@v1.1.0
   with:
     # The user for which the image is being generated. Default: the owner of the current repository.
     user: 'your_user_name'
-      
+    
+    # The depth to which the image should be generated (how many recursive layers). Default: 10"
+    depth: 10
+    
     # Whether or not to automatically commit the generated image. For ease of use this should be set to true. If any 
     # further manipulation of the image needs to take place after it is generated this input should be set to false.
     # Default: false
