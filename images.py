@@ -70,6 +70,12 @@ def main():
         default='false',
     )
     parser.add_argument(
+        "-d", "--depth",
+        help="The depth to which the image should be generated.",
+        default=10,
+        type=int,
+    )
+    parser.add_argument(
         "-o", "--output-file",
         help="The file to which the image is output.",
         default="example.png",
@@ -87,7 +93,7 @@ def main():
         print(f"User set to: {args.user}")
 
     with open(args.output_file, 'wb') as file:
-        file.write(get_image(args.user, element_id=args.tag_id))
+        file.write(get_image(args.user, depth=args.depth, element_id=args.tag_id))
 
 
 if __name__ == '__main__':
