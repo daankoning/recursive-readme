@@ -29,7 +29,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: daankoning/recursive-readme@v1
+    - uses: daankoning/recursive-readme@v1.0.1
       with:
         auto-commit: 'true'
 ```
@@ -39,7 +39,7 @@ jobs:
 The entire usage spec is below.
 
 ```yaml
-- uses: daankoning/recursive-readme@v1
+- uses: daankoning/recursive-readme@v1.0.1
   with:
     # The user for which the image is being generated. Default: the owner of the current repository.
     user: 'your_user_name'
